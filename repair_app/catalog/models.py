@@ -75,7 +75,7 @@ class Manufacturer(models.Model):
 
 
 class Resources(models.Model):
-    """."""
+    """Абстрактный класс ресурсов."""
 
     name = models.TextField(
         'Наименование',
@@ -104,8 +104,13 @@ class Resources(models.Model):
         help_text='Необязательное поле',
     )
 
+    class Meta:
+        """Настройки модели."""
+
+        abstract = True
+
     def __str__(self):
-        """."""
+        """Вернуть строковое представление объекта."""
         return self.name
 
 
@@ -126,6 +131,10 @@ class Component(Resources):
         'Наличие',
         default=False,
     )
+    image = models.ImageField(
+        'Фото',
+        upload_to='components_img',
+        blank=True)
 
     class Meta:
         """."""

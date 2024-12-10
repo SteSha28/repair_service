@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django_bootstrap5',
     'pages.apps.PagesConfig',
     'catalog.apps.CatalogConfig',
+    'applications.app.ApplicationsConfig',
 ]
 
 MIDDLEWARE = [
@@ -136,3 +137,5 @@ LOGIN_REDIRECT_URL = 'pages:homepage'
 LOGIN_URL = 'login'
 
 CSRF_FAILURE_VIEW = 'pages.views.csrf_failure'
+
+MEDIA_ROOT = BASE_DIR / 'media'
