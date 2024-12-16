@@ -87,7 +87,7 @@ class Resources(models.Model):
     )
     category = models.ForeignKey(
         Category,
-        on_delete=models.SET_NULL,
+        on_delete=models.PROTECT,
         null=True,
         blank=True,
         verbose_name='Категория',
@@ -152,6 +152,9 @@ class Component(Resources):
         else:
             self.availability = False
         super(Component, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return f'{self.name} {self.manufacturer}'
 
 
 class Service(Resources):

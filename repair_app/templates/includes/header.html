@@ -25,10 +25,10 @@
               {% if user.is_authenticated %}
               <span class="navbar-text text-light me-3">Привет, <b>{{ user.username }}</b>!</span>
               <li class="nav-item">
-                <a class="nav-link" href="#">Создать заявку</a>
+                <a class="nav-link" href="{% url 'applications:application_create' %}">Создать заявку</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">История заявок</a>
+                <a class="nav-link" href="{% url 'applications:applications_list' %}">История заявок</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
