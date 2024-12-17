@@ -7,8 +7,11 @@ from .models import (Application, ApplicationComponentItem,
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from .forms import ApplicationForm
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from catalog.models import Component, Service
+from django.conf import settings
+from django.template.loader import render_to_string
+import weasyprint
 
 
 @method_decorator(login_required, name='dispatch')
@@ -132,3 +135,22 @@ class ApplicationDeleteView(DeleteView):
     """."""
 
     model = Application
+
+
+@login_required
+def create_application_pdf(request, application_id):
+    """."""
+    application = get_object_or_404(Application, pk=application_id)
+    context = {
+        'application': application,
+        'selected_components': ApplicationComponentItem.objects.filter(
+            application=application),
+        'selected_services': ApplicationServiceItem.objects.filter(
+            application=application),
+    }
+    html = render_to_string('applications/application_pdf.html',
+                            context=context)
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'filename=order_{application.id}.pdf'
+    weasyprint.HTML(string=html).write_pdf(response)
+    return response
