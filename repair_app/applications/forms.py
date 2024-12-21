@@ -1,12 +1,11 @@
 from django import forms
 from .models import Application
-from catalog.models import Category, Component, Service
+from catalog.models import Category
 from django.contrib.auth.models import User
-from django_select2.forms import Select2MultipleWidget
 
 
 class ApplicationForm(forms.ModelForm):
-    """."""
+    """Сlass implements the form for creating an application."""
 
     category = forms.ModelChoiceField(
         queryset=Category.objects.all(),

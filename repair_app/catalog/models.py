@@ -7,8 +7,6 @@ User = get_user_model()
 
 
 class Category(models.Model):
-    """."""
-
     title = models.CharField(
         'Тип техники',
         max_length=128,
@@ -24,25 +22,19 @@ class Category(models.Model):
     )
 
     def save(self, *args, **kwargs):
-        """."""
         if not self.id and not self.slug:
             self.slug = slugify(unidecode(self.title))
         super().save(*args, **kwargs)
 
     class Meta:
-        """."""
-
         verbose_name = 'категория'
         verbose_name_plural = 'Категории'
 
     def __str__(self):
-        """."""
         return self.title
 
 
 class Manufacturer(models.Model):
-    """."""
-
     title = models.CharField(
         'Производитель',
         max_length=128,
@@ -58,19 +50,15 @@ class Manufacturer(models.Model):
     )
 
     def save(self, *args, **kwargs):
-        """."""
         if not self.id and not self.slug:
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
 
     class Meta:
-        """."""
-
         verbose_name = 'производитель'
         verbose_name_plural = 'Производители'
 
     def __str__(self):
-        """."""
         return self.title
 
 
@@ -105,18 +93,13 @@ class Resources(models.Model):
     )
 
     class Meta:
-        """Настройки модели."""
-
         abstract = True
 
     def __str__(self):
-        """Вернуть строковое представление объекта."""
         return self.name
 
 
 class Component(Resources):
-    """."""
-
     manufacturer = models.ForeignKey(
         Manufacturer,
         on_delete=models.SET_NULL,
@@ -137,16 +120,10 @@ class Component(Resources):
         blank=True)
 
     class Meta:
-        """."""
-
         verbose_name = 'деталь'
         verbose_name_plural = 'Детали'
 
     def save(self, *args, **kwargs):
-        """Переопределенный метод save.
-
-        Для автоматического обновления availability.
-        """
         if self.quantity > 0:
             self.availability = True
         else:
@@ -158,14 +135,10 @@ class Component(Resources):
 
 
 class Service(Resources):
-    """."""
-
     duration = models.DurationField(
         verbose_name='Продолжительность',
     )
 
     class Meta:
-        """."""
-
         verbose_name = 'услуга'
         verbose_name_plural = 'Услуги'
