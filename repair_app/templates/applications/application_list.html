@@ -26,7 +26,7 @@
                   <td>{{ application.master.first_name }} {{ application.master.last_name }}</td>
                   <td>{{ application.get_total_cost }}</td>
                   <td>
-                    <a href="{% url 'applications:application_pdf' application.id%}" class="btn btn-success btn-sm">PDF</a>
+                    <a href="{% url 'applications:application_pdf' application.id %}" class="btn btn-success btn-sm">PDF</a>
                       {% if application.can_edit %}
                           <a href="{% url 'applications:application_edit' application.id %}" class="btn btn-warning btn-sm">Редактировать</a>
                           <a href="{% url 'applications:application_delete' application.id %}" class="btn btn-danger btn-sm">Удалить</a>

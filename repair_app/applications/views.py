@@ -123,7 +123,7 @@ class ApplicationDeleteView(DeleteView):
 
 
 @login_required
-def create_application_pdf(application_id):
+def create_application_pdf(request, application_id):
     """Function converting application into PDF page."""
     application = get_object_or_404(Application, pk=application_id)
     context = {
