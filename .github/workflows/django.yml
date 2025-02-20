@@ -40,10 +40,12 @@ jobs:
         python manage.py migrate
 
     - name: Collect Static Files
+      working-directory: repair_app
       run: |
         python manage.py collectstatic --noinput
 
     - name: Run Tests
+      working-directory: repair_app
       env:
         DJANGO_SETTINGS_MODULE: "myproject.settings"
       run: |
